@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Delete, Get, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post, Put } from '@nestjs/common';
 import { SongsService } from './songs.service';
+import { CreateSongsDto } from './dto/create-songs-dto';
 
 @Controller('api/v1/songs')
 export class SongsController {
@@ -8,8 +9,9 @@ export class SongsController {
     console.log('Songs Controller Created');
   }
   @Post()
-  create() {
-    return this.songsService.create('arijit singh');
+  //   add a create song validation
+  create(@Body() createSong: CreateSongsDto) {
+    return this.songsService.create(createSong);
   }
   @Get()
   getAllSongs() {
