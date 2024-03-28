@@ -13,6 +13,8 @@ export class SongsService {
 
   // get all songs
   getAllSongs() {
+    // fetch error using exception
+    throw new Error('fetch error');
     return this.songs;
   }
 

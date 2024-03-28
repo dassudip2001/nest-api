@@ -1,5 +1,16 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Delete, Get, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpException,
+  HttpStatus,
+  Param,
+  ParseIntPipe,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { SongsService } from './songs.service';
 import { CreateSongsDto } from './dto/create-songs-dto';
 
@@ -15,12 +26,24 @@ export class SongsController {
   }
   @Get()
   getAllSongs() {
-    return this.songsService.getAllSongs();
+    try {
+      return this.songsService.getAllSongs();
+    } catch (e) {
+      throw new HttpException('fetch error', HttpStatus.BAD_REQUEST, {
+        cause: e.message,
+      });
+    }
   }
 
   @Get('id')
-  getOne(): string {
-    return 'All songs';
+  getOne(
+    @Param(
+      'id',
+      new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE }),
+    )
+    id: number,
+  ) {
+    return `All songs ${typeof id}`;
   }
 
   @Put('id')
