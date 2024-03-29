@@ -5,6 +5,7 @@ export class AuthModel {
   @IsEmail()
   @IsNotEmpty()
   email: string;
+  name: string;
   @IsString()
   @IsNotEmpty()
   password: string;

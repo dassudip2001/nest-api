@@ -8,19 +8,14 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('login')
-  login() {
-    return this.authService.login();
-  }
-
-  @Post('logout')
-  logout() {
-    return this.authService.logout();
+  login(@Body() dto: AuthModel) {
+    return this.authService.login(dto);
   }
 
   @Post('register')
   register(@Body() dto: AuthModel) {
-    console.log(dto);
+    // console.log(dto);
 
-    return this.authService.register();
+    return this.authService.register(dto);
   }
 }
